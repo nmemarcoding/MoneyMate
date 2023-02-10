@@ -37,6 +37,27 @@ router.get("/find", auth, async (req, res) => {
   }
 });
 
+// find all income base on month and calculate total income 
+
+router.get("/findTotal", auth, async (req, res) => {
+  try {
+    const income = await Income.find({
+      userId: req.userId,
+      date: {
+        $gte: new Date(req.body.start),
+        $lte: new Date(req.body.end),
+      },
+    });
+    let total = 0;
+    income.forEach((item) => {
+      total += item.amount;
+    });
+    res.status(200).json(total);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 
 
 
