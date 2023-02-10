@@ -28,7 +28,7 @@ router.get("/find", auth, async (req, res) => {
       userId: req.userId,
       date: {
         $gte: new Date(req.body.start),
-        $lte: new Date(req.body.end),
+        $lte: new Date(req.body.end + 'T23:59:59.999Z'),
       },
     });
     res.status(200).json(income);
@@ -45,7 +45,7 @@ router.get("/findTotal", auth, async (req, res) => {
       userId: req.userId,
       date: {
         $gte: new Date(req.body.start),
-        $lte: new Date(req.body.end),
+        $lte: new Date(req.body.end + 'T23:59:59.999Z'),
       },
     });
     let total = 0;
