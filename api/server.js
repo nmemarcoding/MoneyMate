@@ -1,17 +1,12 @@
 // express server on port 3001 with mongoose connection to mongodb
-
-// import express
 const express = require('express');
-// import mongoose
 const mongoose = require('mongoose');
-// import cors
 const cors = require('cors');
-// import body-parser
 const bodyParser = require('body-parser');
-// import dotenv
+const authRoute = require("./routes/auth");
+
 require('dotenv').config();
 
-// create express app
 const app = express();
 
 // use cors
@@ -29,13 +24,10 @@ mongoose
 })
 
 
-// // import routes
-// const exercisesRouter = require('./routes/exercises');
-// const usersRouter = require('./routes/users');
 
-// // use routes
-// app.use('/exercises', exercisesRouter);
-// app.use('/users', usersRouter);
+
+// use routes
+app.use("/api/auth", authRoute);
 
 // start server
 app.listen(3001, () => {
