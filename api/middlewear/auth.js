@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 // Create a middleware function to verify the access_token
 function auth(req, res, next) {
-    const accessToken = req.body.access_token;
+    const accessToken = req.body.token;
 
     if (!accessToken) {
         return res.status(401).send({ error: 'Unauthorized' });
