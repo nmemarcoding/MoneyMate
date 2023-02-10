@@ -26,7 +26,8 @@ mongoose
     .then(() => console.log("DB Connection Successfull!"))
     .catch((err) => {
         console.log(err);
-    })
+})
+
 
 // // import routes
 // const exercisesRouter = require('./routes/exercises');
