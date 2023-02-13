@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoute = require("./routes/auth");
 const incomeRoute = require("./routes/income.js");
+const expenseRoute = require("./routes/expens.js");
 
 require('dotenv').config();
 
@@ -30,6 +31,7 @@ mongoose
 // use routes
 app.use("/api/auth", authRoute);
 app.use("/api/income",incomeRoute);
+app.use("/api/expense",expenseRoute);
 
 // start server
 app.listen(3001, () => {
