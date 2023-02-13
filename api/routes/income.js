@@ -3,22 +3,45 @@ const { model } = require("mongoose");
 const auth = require("../middlewear/auth");
 const Income = require("../models/income");
 const User = require("../models/User");
+const MonthlyBudgetTracker = require("../models/monthlyBudgetTracker");
 
-// creat income
+
+
+// creat icome after creating that find monthly budget tracker for the same month and add new income id to income array
+// if monthly budget tracker not found then create new monthly budget tracker and add income id to income array
 router.post("/",auth, async (req, res) => {
   try {
-    
     const income = await Income.create({
       userId: req.userId,
       amount: req.body.amount,
       description: req.body.description,
-      
+
     });
+    const monthlyBudgetTracker = await MonthlyBudgetTracker.findOne({
+      userId: req.userId,
+      date: {
+        $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+        $lte: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999),
+      },
+    });
+    if(monthlyBudgetTracker){
+      monthlyBudgetTracker.income.push(income._id);
+      await monthlyBudgetTracker.save();
+
+    }else{
+      const monthlyBudgetTracker = await MonthlyBudgetTracker.create({
+        userId: req.userId,
+        income: [income._id],
+        expense: [],
+      });
+    }
     res.status(200).json(income);
   } catch (err) {
     res.status(400).json(err);
+    console.log(err);
   }
 });
+
 
 // find all income base on month
 // add body like this {"start": "2022-01-01","end": "2022-12-31",token:"token"}
