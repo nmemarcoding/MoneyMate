@@ -31,10 +31,12 @@ router.get("/", auth, async (req, res) => {
 router.get("/totalBudget", auth, async (req, res) => {
     try {
         const budget = await Budget.find({ userId: req.userId }).populate("incomes").populate("expenses");
-        const totalBudget = budget[0].totalBudget();
+        let totalBudget = budget[0].totalBudget();
         // check if in incomes array for existing month there is montly income
         const isMontlyIncome = budget[0].incomes.find((income) => {
-            return income.isMontlyIncome === true && income.date.getMonth() === new Date().getMonth();
+         
+            
+            return income.isMontlyIncome=== true && income.date.getMonth() === new Date().getMonth() && income.date.getFullYear() === new Date().getFullYear()
         });
         // if there is no montly income for this month creat new income with montly income amount and description montly income
         if (!isMontlyIncome && budget[0].montlyIncome !== 0) {
@@ -50,7 +52,7 @@ router.get("/totalBudget", auth, async (req, res) => {
             // save budget
             await budget[0].save();
             // add new income amount to total budget
-            totalBudget.totalIncome += newIncome.amount;
+            totalBudget += newIncome.amount;
         }
         res.status(200).json(totalBudget);
     } catch (err) {
