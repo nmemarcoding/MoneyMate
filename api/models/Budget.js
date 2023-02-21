@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 
+
 const budgetSchema = new mongoose.Schema({
     userId: {
         type: String,
@@ -37,7 +38,9 @@ budgetSchema.methods.totalBudgetByMonth = function (month, year) {
     let totalIncome = 0;
     let totalExpense = 0;
     this.incomes.forEach((item) => {
+
         if (item.date.getMonth() === month && item.date.getFullYear() === year) {
+         
             totalIncome += item.amount;
         }
     });

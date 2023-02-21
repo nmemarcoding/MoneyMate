@@ -34,6 +34,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/income",incomeRoute);
 app.use("/api/expense",expenseRoute);
 app.use("/api/montlybudghet",MonthlyBudgetTracker);
+app.use("/api/budget",require('./routes/budget.js'));
 
 // start server
 app.listen(3001, () => {
