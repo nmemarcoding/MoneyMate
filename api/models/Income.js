@@ -21,6 +21,10 @@ const IncomeSchema = new Schema({
         type: String,
         required: true
     },
+    isMontlyIncome: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = mongoose.model("Income", IncomeSchema);
