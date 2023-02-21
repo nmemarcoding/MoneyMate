@@ -48,10 +48,8 @@ const Budget = require("../models/budget");
 router.post("/",auth, async (req, res) => {
   try {
     const income = await Income.create({
+      ...req.body,
       userId: req.userId,
-      amount: req.body.amount,
-      description: req.body.description,
-
     });
     const budget = await Budget.findOne({
       userId: req.userId,
