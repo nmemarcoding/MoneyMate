@@ -5,11 +5,48 @@ const Expense = require("../models/Expense");
 const Income = require("../models/income");
 const User = require("../models/User");
 const MonthlyBudgetTracker = require("../models/monthlyBudgetTracker");
-
+const Budget = require("../models/budget");
 
 
 // creat expense after creating that find monthly budget tracker for the same month and add new income id to income array
 // if monthly budget tracker not found then create new monthly budget tracker and add expense id to expense array
+// router.post("/",auth, async (req, res) => {
+//     try {
+//         const expense = await Expense.create({
+//         userId: req.userId,
+//         amount: req.body.amount,
+//         description: req.body.description,
+
+//         });
+//         const monthlyBudgetTracker = await MonthlyBudgetTracker.findOne({
+//         userId: req.userId,
+//         date: {
+//             $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+//             $lte: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999),
+//         },
+//         });
+//         if(monthlyBudgetTracker){
+//         monthlyBudgetTracker.expense.push(expense._id);
+//         await monthlyBudgetTracker.save();
+
+//         }else{
+//         const monthlyBudgetTracker = await MonthlyBudgetTracker.create({
+//             userId: req.userId,
+//             income: [],
+//             expense: [expense._id],
+//         });
+//         }
+//         res.status(200).json(expense);
+//     } catch (err) {
+//         res.status(400).json(err);
+//         console.log(err);
+//     }
+// });
+
+
+
+// creat expens after creating that go to Budget model and look for the same user id and add new expens to list of expenses
+// if Budget not found with same user id then create new Budget and add expens id to expenses array.
 router.post("/",auth, async (req, res) => {
     try {
         const expense = await Expense.create({
@@ -18,22 +55,17 @@ router.post("/",auth, async (req, res) => {
         description: req.body.description,
 
         });
-        const monthlyBudgetTracker = await MonthlyBudgetTracker.findOne({
+        const budget = await Budget.findOne({
         userId: req.userId,
-        date: {
-            $gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
-            $lte: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0, 23, 59, 59, 999),
-        },
         });
-        if(monthlyBudgetTracker){
-        monthlyBudgetTracker.expense.push(expense._id);
-        await monthlyBudgetTracker.save();
-
+        if(budget){
+        budget.expenses.push(expense._id);  
+        await budget.save();
         }else{
-        const monthlyBudgetTracker = await MonthlyBudgetTracker.create({
+        const budget = await Budget.create({
             userId: req.userId,
-            income: [],
-            expense: [expense._id],
+            incomes: [],
+            expenses: [expense._id],
         });
         }
         res.status(200).json(expense);
@@ -42,6 +74,7 @@ router.post("/",auth, async (req, res) => {
         console.log(err);
     }
 });
+
 
 
 
