@@ -84,6 +84,26 @@ router.get("/findIncome", auth, async (req, res) => {
     }
 });
 
+// router to calculate weekly budget base on month and user id 
+// divide mountly budghet by 4 and find weekly budget
+router.get("/weeklyBudget", auth, async (req, res) => {
+    try {
+        const monthlyBudgetTracker = await MonthlyBudgetTracker.find({
+        userId: req.userId,
+        date: {
+            $gte: new Date(req.body.start),
+            $lte: new Date(req.body.end + 'T23:59:59.999Z'),
+        },
+        }).populate("income").populate("expense");
+        const weeklyBudget = monthlyBudgetTracker[0].totalBudget() / 4;
+        res.status(200).json(weeklyBudget);
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+});
+
+
 
 // export router
 module.exports = router;
