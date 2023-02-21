@@ -32,5 +32,22 @@ budgetSchema.methods.totalBudget = function () {
     return totalIncome - totalExpense;
 };
 
+// mode to calculate total budget base on mount and year provided by user
+budgetSchema.methods.totalBudgetByMonth = function (month, year) {
+    let totalIncome = 0;
+    let totalExpense = 0;
+    this.incomes.forEach((item) => {
+        if (item.date.getMonth() === month && item.date.getFullYear() === year) {
+            totalIncome += item.amount;
+        }
+    });
+    this.expenses.forEach((item) => {
+        if (item.date.getMonth() === month && item.date.getFullYear() === year) {
+            totalExpense += item.amount;
+        }
+    });
+    return totalIncome - totalExpense;
+};
+
 
 module.exports = mongoose.model('Budget', budgetSchema);
