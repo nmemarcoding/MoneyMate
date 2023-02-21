@@ -13,6 +13,10 @@ const budgetSchema = new mongoose.Schema({
 
         default: Date.now,
     },
+    montlyIncome: {
+        type: Number,
+        default: 0,
+    },
     incomes: [{type: mongoose.Schema.Types.ObjectId,
                 ref: "Income"}],
     expenses: [{type: mongoose.Schema.Types.ObjectId,
