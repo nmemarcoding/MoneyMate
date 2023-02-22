@@ -149,6 +149,37 @@ router.get("/findBought", auth, async (req, res) => {
     }
 });
 
+// creat expense with autoExpense true and add expense id to autoExpense array in Budget model
+router.post("/autoExpense",auth, async (req, res) => {
+    try {
+        const expense = await Expense.create({
+        userId: req.userId,
+        amount: req.body.amount,
+        description: req.body.description,
+        isAutoExpense: true,
+        });
+        const budget = await Budget.findOne({
+        userId: req.userId,
+        });
+        if(budget){
+        budget.autoExpenses.push(expense._id);
+        budget.expenses.push(expense._id);
+        await budget.save();
+        }else{
+        const budget = await Budget.create({
+            userId: req.userId,
+            incomes: [],
+            expenses: [expense._id],
+            autoExpenses: [expense._id],
+        });
+        }
+        res.status(200).json(expense);
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+});
+
 
 
 
