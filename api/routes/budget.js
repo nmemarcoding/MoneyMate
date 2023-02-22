@@ -53,7 +53,7 @@ router.get("/totalBudget", auth, async (req, res) => {
                     await budget[0].save();
                     // add new expense amount to total budget
                     totalBudget = totalBudget - expense.amount;
-                    console.log(totalBudget);
+                    
                 
             });
         }   
@@ -101,6 +101,33 @@ router.get("/totalBudget/:month/:year", auth, async (req, res) => {
         console.log(err);
     }
 });
+
+// update montly income if there is no budget for this user create new budget
+router.put("/montlyIncome", auth, async (req, res) => {
+    try {
+        const budget = await Budget.find({ userId: req.userId });
+        if (budget.length === 0) {
+            const newBudget = await Budget.create({
+                userId: req.userId,
+                montlyIncome: req.body.montlyIncome,
+                incomes: [],
+                expenses: [],
+                autoExpenses: [],
+                date: new Date(),
+            });
+            res.status(200).json(newBudget);
+        } else {
+            budget[0].montlyIncome = req.body.montlyIncome;
+            await budget[0].save();
+            res.status(200).json(budget[0]);
+        }
+    } catch (err) {
+        res.status(400).json(err);
+        console.log(err);
+    }
+});
+
+
 
 
 
