@@ -18,6 +18,10 @@ const expenseSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    isAutoExpense: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 // export model

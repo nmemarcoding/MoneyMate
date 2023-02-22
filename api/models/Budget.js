@@ -21,6 +21,8 @@ const budgetSchema = new mongoose.Schema({
                 ref: "Income"}],
     expenses: [{type: mongoose.Schema.Types.ObjectId,
                 ref: "Expense"}],
+    autoExpenses: [{type: mongoose.Schema.Types.ObjectId,
+                ref: "Expense"}],
 
 });
 
