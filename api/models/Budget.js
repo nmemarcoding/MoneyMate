@@ -59,5 +59,16 @@ budgetSchema.methods.totalBudgetByMonth = function (month, year) {
     return totalIncome - totalExpense;
 };
 
+// model to calculate total budget remining after auto expense deduction by deduction monthly income from total auto expense
+budgetSchema.methods.totalBudgetAfterAutoExpense = function () {
+    let totalIncome = this.montlyIncome;
+    let totalAutoExpense = 0;
+    
+    this.autoExpenses.forEach((item) => {
+        totalAutoExpense += item.amount;
+    });
+    return totalIncome - totalAutoExpense;
+};
+
 
 module.exports = mongoose.model('Budget', budgetSchema);

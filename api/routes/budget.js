@@ -37,6 +37,7 @@ router.get("/totalBudget", auth, async (req, res) => {
 
         let totalBudget = budget[0].totalBudget();
         
+        
         // check if in incomes array for existing month there is montly income
         const isMontlyIncome = budget[0].incomes.find((income) => {
          
