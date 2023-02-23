@@ -22,7 +22,19 @@ router.get("/", auth, async (req, res) => {
 // also cheack and if for any income for this mounth has isMontlyInome = true if is not creat new income with amunt of montly income saved in budget schema and also make isMontlyInome = tru and description = montly income
 router.get("/totalBudget", auth, async (req, res) => {
     try {
-        const budget = await Budget.find({ userId: req.userId }).populate("incomes").populate("expenses").populate("autoExpenses");
+        let budget = await Budget.find({ userId: req.userId }).populate("incomes").populate("expenses").populate("autoExpenses");
+        // if budget is not created yet creat new budget
+        if (budget.length === 0) {
+            const newBudget = await Budget.create({
+                userId: req.userId,
+                montlyIncome: 0,
+                incomes: [],
+                expenses: [],
+                autoExpenses: [],
+            });
+            budget = await Budget.find({ userId: req.userId }).populate("incomes").populate("expenses").populate("autoExpenses");
+        }
+
         let totalBudget = budget[0].totalBudget();
         
         // check if in incomes array for existing month there is montly income
@@ -76,7 +88,7 @@ router.get("/totalBudget", auth, async (req, res) => {
             // add new income amount to total budget
             totalBudget += newIncome.amount;
         }
-        res.status(200).json(totalBudget);
+        res.status(200).json({...budget[0]._doc,totalBudget});
     } catch (err) {
         res.status(400).json(err);
         console.log(err);
@@ -95,7 +107,7 @@ router.get("/totalBudget/:month/:year", auth, async (req, res) => {
         // convert year input to int
 
      
-        res.status(200).json(budget[0].totalBudgetByMonth(req.params.month-1 , parseInt(req.params.year)));
+        res.status(200).json(budget[0]?.totalBudgetByMonth(req.params.month-1 , parseInt(req.params.year)));
     } catch (err) {
         res.status(400).json(err);
         console.log(err);
