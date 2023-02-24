@@ -18,9 +18,10 @@ router.post("/register", async(req, res) => {
 
     try {
         const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
+        res.status(200).json(savedUser);
     } catch (err) {
         res.status(500).json(err);
+        console.log(err)
     }
 });
 
@@ -32,7 +33,7 @@ router.post('/login', async(req, res) => {
             username: req.body.username
         });
         if (!user) {
-            return res.status(401).json("Wrong User Name");
+            return res.status(200).json("Wrong username or password");
         }
 
 
@@ -48,7 +49,8 @@ router.post('/login', async(req, res) => {
 
         if (originalPassword != inputPassword) {
 
-            return res.status(401).json("Wrong Password");
+            return res.status(200).json("Wrong username or password");
+
         }
 
         const accessToken = jwt.sign({
