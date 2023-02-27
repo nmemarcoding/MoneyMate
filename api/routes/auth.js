@@ -33,7 +33,7 @@ router.post('/login', async(req, res) => {
             username: req.body.username
         });
         if (!user) {
-            return res.status(200).json("Wrong username or password");
+            return res.status(401).json("Wrong username or password");
         }
 
 
@@ -49,7 +49,7 @@ router.post('/login', async(req, res) => {
 
         if (originalPassword != inputPassword) {
 
-            return res.status(200).json("Wrong username or password");
+            return res.status(401).json("Wrong username or password");
 
         }
 

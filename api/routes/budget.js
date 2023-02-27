@@ -21,7 +21,9 @@ router.get("/", auth, async (req, res) => {
 // rout to get total budget base on user id and populate income and expense
 // also cheack and if for any income for this mounth has isMontlyInome = true if is not creat new income with amunt of montly income saved in budget schema and also make isMontlyInome = tru and description = montly income
 router.get("/totalBudget", auth, async (req, res) => {
+    
     try {
+        
         let budget = await Budget.find({ userId: req.userId }).populate("incomes").populate("expenses").populate("autoExpenses");
         // if budget is not created yet creat new budget
         if (budget.length === 0) {
