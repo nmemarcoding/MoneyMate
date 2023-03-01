@@ -53,25 +53,23 @@ router.get("/totalBudget", auth, async (req, res) => {
         });
         
         //looping through expenses array and creat new expenses for each auto expense with sane amount and description
-        if (!isAutoExpense ) { 
-            budget[0].autoExpenses.forEach(async (expense) => {
-                    const newExpense = await Expense.create({
-                        userId: req.userId,
-                        amount: expense.amount,
-                        description: expense.description,
-                        date: new Date(),
-                        isAutoExpense: true,
-                    });
-                    // push new expense to expense array
-                    budget[0].expenses.push(newExpense);
-                    // save budget
-                    await budget[0].save();
-                    // add new expense amount to total budget
-                    totalBudget = totalBudget - expense.amount;
-                    
-                
+        if (!isAutoExpense) { 
+            const expensePromises = budget[0].autoExpenses.map(async (expense) => {
+              const newExpense = await Expense.create({
+                userId: req.userId,
+                amount: expense.amount,
+                description: expense.description,
+                date: new Date(),
+                isAutoExpense: true,
+              });
+              budget[0].expenses.push(newExpense);
+              totalBudget = totalBudget - expense.amount;
             });
-        }   
+          
+            await Promise.all(expensePromises);
+            await budget[0].save();
+          }
+             
         
 
 
