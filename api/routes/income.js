@@ -53,7 +53,7 @@ router.post("/",auth, async (req, res) => {
     });
     const budget = await Budget.findOne({
       userId: req.userId,
-    });
+    }).populate("incomes");
     if(budget){
       budget.incomes.push(income._id);
       await budget.save();
@@ -65,6 +65,7 @@ router.post("/",auth, async (req, res) => {
         expenses: [],
       });
     }
+   
     res.status(200).json(income);
   } catch (err) {
     res.status(400).json(err);
