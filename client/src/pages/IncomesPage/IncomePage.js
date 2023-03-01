@@ -72,7 +72,7 @@ export default function IncomePage() {
         <div className="p-4 md:p-8">
             <div className="mt-4">
                 <h1 className="text-3xl font-bold text-center">{new Date().toLocaleString('default', { month: 'short' })} Income</h1>
-                <h2 className="text-4xl font-bold text-center text-blue-500">${totalIncomes}</h2>
+                <h2 className="text-4xl font-bold text-center text-blue-500">{totalIncomes.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</h2>
             </div>
 
             <form className="flex flex-col md:flex-row items-center justify-center w-full mt-8">

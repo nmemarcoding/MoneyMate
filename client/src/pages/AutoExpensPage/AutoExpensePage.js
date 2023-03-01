@@ -68,7 +68,7 @@ export default function AutoExpensePage() {
             <div className="p-4 md:p-8">
                 <div className="mt-4">
                     <h1 className="text-3xl font-bold text-center"> AutoExpense</h1>
-                    <h2 className="text-4xl font-bold text-center text-blue-500">${totalAutoExpenses}</h2>
+                    <h2 className="text-4xl font-bold text-center text-blue-500">{totalAutoExpenses.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</h2>
                 </div>
 
                 <form className="flex flex-col md:flex-row items-center justify-center w-full mt-8">
@@ -91,7 +91,7 @@ export default function AutoExpensePage() {
                         <tbody key={item.id}>
                         <tr className="w-full font-light text-gray-700 bg-gray-100 whitespace-no-wrap border border-b-0">
                             <td className="px-4 py-4">{item.description}</td>
-                            <td className="px-4 py-4">${item.amount.toFixed(2)}</td>
+                            <td className="px-4 py-4">{item.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                             <td className="px-4 py-4">{new Date(item.date).toLocaleDateString('en-US')}</td>
                         </tr>
                         </tbody>

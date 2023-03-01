@@ -54,7 +54,7 @@ export default function HomePage() {
           <h2 className="text-xl font-medium text-gray-700 mb-2">Account Balance</h2>
           <div className="flex items-center mb-4">
             <div className="bg-green-500 rounded-full h-4 w-4"></div>
-            <span className="text-xl ml-2">Available Balance: {userBalance.totalBudget}</span>
+            <span className="text-xl ml-2">Available Balance: {userBalance.totalBudget?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</span>
             <span className="text-green-500 text-sm font-semibold ml-2">${userBalance.availableBalance}</span>
           </div>
         </div>
