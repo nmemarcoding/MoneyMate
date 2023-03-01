@@ -7,7 +7,7 @@ const navigation = [
   { name: 'Budget', href: '#', current: false },
   { name: 'Auto Expenses', href: '/autoexpenses', current: false },
   { name: 'Incomes', href: '/incomes', current: false },
-  { name: 'Expenses', href: '#', current: false },
+  { name: 'Expenses', href: '/expenses', current: false },
 ]
 
 function classNames(...classes) {
