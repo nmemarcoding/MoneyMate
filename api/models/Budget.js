@@ -71,4 +71,4 @@ budgetSchema.methods.totalBudgetAfterAutoExpense = function () {
 };
 
 
-module.exports = mongoose.model('Budget', budgetSchema);
+exports = mongoose.model('Budget', budgetSchema);
