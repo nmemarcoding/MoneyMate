@@ -36,9 +36,11 @@ app.use("/api/expense",expenseRoute);
 app.use("/api/montlybudghet",MonthlyBudgetTracker);
 app.use("/api/budget",require('./routes/budget.js'));
 
+const port = process.env.PORT || 3002;
+
 // start server
-app.listen(3002, () => {
-  console.log(`Server is running on port: 3002`);
+app.listen(port, () => {
+  console.log(`Server is running on port: ${port}`);
 });
 
 
