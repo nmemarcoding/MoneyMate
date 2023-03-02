@@ -1,11 +1,11 @@
-// express server on port 3001 with mongoose connection to mongodb
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const authRoute = require("./routes/auth");
-const incomeRoute = require("./routes/income.js");
-const expenseRoute = require("./routes/expens.js");
+// const authRoute = require("./routes/auth");
+// const incomeRoute = require("./routes/income.js");
+// const expenseRoute = require("./routes/expens.js");
 const MonthlyBudgetTracker = require('./routes/monthlyBudgetTracker.js');
 
 require('dotenv').config();
