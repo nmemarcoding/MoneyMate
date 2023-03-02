@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const { model } = require("mongoose");
-const auth = require("../middlewear/auth");
-const Income = require("../models/income");
-const User = require("../models/User");
-const MonthlyBudgetTracker = require("../models/monthlyBudgetTracker");
+const auth = require("../middlewear/auth.js");
+const Income = require("../models/income.js");
+const User = require("../models/user.js");
+const MonthlyBudgetTracker = require("../models/monthlyBudgetTracker.js");
 
 // creat monthly budget tracker
 router.post("/",auth, async (req, res) => {

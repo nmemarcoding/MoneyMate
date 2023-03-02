@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const { model } = require("mongoose");
-const auth = require("../middlewear/auth");
-const Expense = require("../models/Expense");
-const Income = require("../models/income");
-const User = require("../models/User");
-const MonthlyBudgetTracker = require("../models/monthlyBudgetTracker");
-const Budget = require("../models/budget");
+const auth = require("../middlewear/auth.js");
+const Expense = require("../models/expense.js");
+const Income = require("../models/income.js");
+const User = require("../models/user.js");
+const MonthlyBudgetTracker = require("../models/monthlyBudgetTracker.js");
+const Budget = require("../models/budget.js");
 
 
 // creat expense after creating that find monthly budget tracker for the same month and add new income id to income array

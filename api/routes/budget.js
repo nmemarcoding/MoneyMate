@@ -1,9 +1,9 @@
 const router = require("express").Router();
 const { model } = require("mongoose");
-const auth = require("../middlewear/auth");
-const Budget = require("../models/budget");
-const Income = require("../models/income");
-const Expense = require("../models/Expense");
+const auth = require("../middlewear/auth.js");
+const Budget = require("../models/budget.js");
+const Income = require("../models/income.js");
+const Expense = require("../models/expense.js");
 
 // rout to get budget base on user id an populate income and expense
 router.get("/", auth, async (req, res) => {

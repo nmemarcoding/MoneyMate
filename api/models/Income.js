@@ -1,7 +1,7 @@
 // income schema
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const user = require("./User.js");
+const user = require("./user.js");
 
 const IncomeSchema = new Schema({
     userId: {
