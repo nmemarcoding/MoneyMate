@@ -35,4 +35,4 @@ MonthlyBudgetTrackerSchema.methods.totalBudget = function () {
 const MonthlyBudgetTracker = mongoose.model('MonthlyBudgetTracker', MonthlyBudgetTrackerSchema);
 
 // export model
-exports = MonthlyBudgetTracker;
+module.exports = MonthlyBudgetTracker;
