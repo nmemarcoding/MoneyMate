@@ -27,6 +27,7 @@ const budgetSchema = new mongoose.Schema({
 });
 
 
+
 // model to calculate total budget by deductiong total expense from total income
 budgetSchema.methods.totalBudget = function () {
     let totalIncome = 0;
