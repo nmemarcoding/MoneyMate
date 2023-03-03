@@ -26,7 +26,8 @@ export default function Login() {
 
         })
         .catch((err) => {
-            console.log(err.respons.data)
+          
+            window.alert(err.response.data)
         })
     }
 

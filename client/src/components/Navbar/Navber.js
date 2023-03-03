@@ -2,19 +2,30 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const navigation = [
-  { name: 'Budget', href: '#', current: false },
+  // { name: 'Budget', href: '#', current: false },
   { name: 'Auto Expenses', href: '/autoexpenses', current: false },
   { name: 'Incomes', href: '/incomes', current: false },
   { name: 'Expenses', href: '/expenses', current: false },
 ]
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+
+
 export default function Navbar() {
+
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem("user")
+    navigate("/login")
+  }
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -57,10 +68,10 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <Link to="/login">
+                
                     <button
                     type="button"
-                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" onClick={logout}
                     >
                     <span className="sr-only">login</span>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -68,7 +79,7 @@ export default function Navbar() {
                     </svg>
 
                     </button>
-                </Link>
+                
                
 
                 {/* Profile dropdown */}
