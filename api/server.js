@@ -35,6 +35,7 @@ app.use("/api/income",incomeRoute);
 app.use("/api/expense",expenseRoute);
 app.use("/api/montlybudghet",MonthlyBudgetTracker);
 app.use("/api/budget",require('./routes/budget.js'));
+app.use("/api/start",require('./routes/start.js'));
 
 const port = process.env.PORT || 3002;
 
