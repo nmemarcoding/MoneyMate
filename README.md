@@ -22,7 +22,7 @@ MoneyMate is a budget tracking app built with the MERN stack. It allows you to a
 
 ## Deployed App
 
-You can access the deployed app at the following link: \`https://moneymate-e4eb4.web.app/\`
+You can access the deployed app at the following link: \`https://moneymate-e4eb4.web.app/`
 
 
 
