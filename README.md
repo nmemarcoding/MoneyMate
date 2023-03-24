@@ -20,6 +20,12 @@ MoneyMate is a budget tracking app built with the MERN stack. It allows you to a
 - Tailwind CSS for styling
 - React Router for routing
 
+## Deployed App
+
+You can access the deployed app at the following link: \`https://moneymate-e4eb4.web.app/\`
+
+
+
 ## Installation and Usage
 
 1. Clone the repository: \`git clone <repository-url>\`
