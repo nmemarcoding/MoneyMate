@@ -23,6 +23,7 @@ export default function Login() {
             // save user info with current date includedin local storage
             localStorage.setItem("user",JSON.stringify({...res.data, date: new Date()})) 
             navigate('/');
+            window.location.reload();
 
         })
         .catch((err) => {

@@ -69,19 +69,37 @@ export default function HomePage() {
   // use efect to calculate weekly remaining budget of current week of current month
   useEffect(() => {
     // getting total expense of current week of current month that is not auto expense
-    if(userBalance.expenses){
-      // find all expenses of current week of current month that is not auto expense and add them to total
-      let total = 0
-    userBalance?.expenses?.forEach((expense) => {
-      const date = new Date()
-      const expenseDate = new Date(expense.date)
-      if(date.getMonth() === expenseDate.getMonth() && date.getDate() <= expenseDate.getDate() && date.getDate() + 7 >= expenseDate.getDate() && expense.isAutoExpense === false){
-        total += expense.amount
-      }
-      })
-      setWeeklyRemaining(weeklyBudget - total)
+    if (userBalance.expenses) {
+      const date = new Date();
+      const dayOfMonth = date.getDate();
+      let total = 0;
+  
+      userBalance.expenses.forEach((expense) => {
+        const expenseDate = new Date(expense.date);
+        if (
+          expenseDate.getMonth() === date.getMonth() &&
+          expense.isAutoExpense === false
+        ) {
+          if (dayOfMonth <= 7 && expenseDate.getDate() <= 7) {
+            total += expense.amount;
+            console.log(total);
+          } else if (dayOfMonth <= 14 && expenseDate.getDate() > 7 && expenseDate.getDate() <= 14) {
+            total += expense.amount;
+          } else if (dayOfMonth <= 21 && expenseDate.getDate() > 14 && expenseDate.getDate() <= 21) {
+            total += expense.amount;
+          } else if (dayOfMonth > 21 && expenseDate.getDate() > 21) {
+            total += expense.amount;
+          }
+        }
+      });
+  
+     
+      setWeeklyRemaining(weeklyBudget - total);
     }
-  }, [userBalance, weeklyBudget])
+  }, [userBalance, weeklyRemaining]);
+  
+ 
+
 
   // use effect to set weekly remaining budget to 0 if is last than avalible budget and is not last week of month
   useEffect(() => {
@@ -112,6 +130,7 @@ export default function HomePage() {
       <div className='w-full top-1/4 absolute'>
       <h1 className='text-xl text-center text-blue-500 '>{new Date().toDateString()}</h1>
       </div>
+     
       
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl mx-auto">
         

@@ -11,12 +11,24 @@ import { publicRequest } from './hooks/requestMethods';
 
 function App() {
   const [serveIsRunning, setServeIsRunning] = useState(false)
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")))
 
   useEffect(() => {
     publicRequest().get("/start")
       .then((res) => {
         setServeIsRunning(true)
+        // if user is more than 3 days than remove it from local storage and set user to null
+        if(user){
+          const date = new Date(user.date)
+          const now = new Date()
+          const diff = now.getTime() - date.getTime()
+          const days = diff / (1000 * 3600 * 24)
+          if(days > 3){
+            localStorage.removeItem("user")
+            setUser(null)
+          }
+        }
+       
       })
       .catch((err) => {
         console.log(err)
@@ -26,7 +38,8 @@ function App() {
   }, [])
   console.log(serveIsRunning)
   
-
+ 
+  
   if(!serveIsRunning){
     return <div class="flex items-center justify-center h-screen">
     <div class="app">
@@ -45,10 +58,15 @@ function App() {
                   
               <Route path="/signup" element={<SigUp/>}/>
               <Route path="/login" element={<Login/>}/> 
-              <Route path="/incomes" element={<IncomePage/>}/>
-              <Route path="/autoexpenses" element={<AutoExpensePage/>}/>
-              <Route path="/expenses" element={<ExpensesPage/>}/>
-              <Route path="/" element={<HomePage/>}/> 
+              {user && <Route path="/home" element={<HomePage/>}/>}
+              {user && <Route path="/incomes" element={<IncomePage/>}/>}
+              {user && <Route path="/autoexpenses" element={<AutoExpensePage/>}/>}
+              {user && <Route path="/expenses" element={<ExpensesPage/>}/>}
+              {user && <Route path="/" element={<HomePage/>}/>}
+              {/* if user is not exist than redirect to login page */}
+              {!user && <Route path="*" element={<Login/>}/>}
+              
+              
               
             </Routes>
           </div>
