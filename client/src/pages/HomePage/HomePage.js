@@ -82,7 +82,7 @@ export default function HomePage() {
         ) {
           if (dayOfMonth <= 7 && expenseDate.getDate() <= 7) {
             total += expense.amount;
-            console.log(total);
+            
           } else if (dayOfMonth <= 14 && expenseDate.getDate() > 7 && expenseDate.getDate() <= 14) {
             total += expense.amount;
           } else if (dayOfMonth <= 21 && expenseDate.getDate() > 14 && expenseDate.getDate() <= 21) {
